@@ -182,7 +182,7 @@ runs:
     - name: Clone DontEatMyContent
       if: ${{ inputs.enable_demc == 'true' }}
       shell: bash
-      run: git clone --quiet --depth=1 https://github.com/therealFoxster/DontEatMyContent.git
+      run: git clone --quiet --depth=1 --branch cursor/duo-outer-cutout-033c https://github.com/Rexios80/donteatmycontent.git DontEatMyContent
 
     - name: Build YouPiP
       if: ${{ inputs.enable_youpip == 'true' }}
@@ -267,3 +267,9 @@ runs:
         cd ../
         dpkg-deb --root-owner-group -b debdir ytplus.deb
         rm -rf debdir ytlite-src
+
+    - name: Download DeArrow
+      shell: bash
+      run: |
+        curl --fail --silent --show-error --location --retry 3           https://github.com/castdrian/DeArrow/releases/download/v1.0.0/dev.adrian.dearrow_1.0.0_iphoneos-arm64.deb           --output dearrow.deb
+        echo 'd6ef2f1b587eef000404c5e0b7268f6e3ec652db0c823373d1a2909801aa3911  dearrow.deb' | sha256sum --check
